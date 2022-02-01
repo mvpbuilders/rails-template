@@ -18,5 +18,5 @@ Get a minimal rails app ready with:
 ```bash
 rails new \
   --database postgresql \
-  -m https://raw.githubusercontent.com/mvpbuilders/rails-template/main/basic_template.rb?token=GHSAT0AAAAAABJCOPLMUCRMHQGFRC4SN5DMYPZISVA \
+  -m https://raw.githubusercontent.com/mvpbuilders/rails-template/main/basic_template.rb \
   RAILS_APP_NAME
