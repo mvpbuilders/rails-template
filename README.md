@@ -2,12 +2,14 @@
 
 ## Basic-template
 
-Get a minimal rails app ready with: 
+Get a minimal rails app ready with:
+
 **Gems:**
 - Bootstrap, Simple form
 - Byebug, pry, rspec
 - Devise, Pundit
 - Letter oppener
+
 **Layouts:**
 - Basic README
 - Mailer layout
