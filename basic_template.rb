@@ -9,11 +9,13 @@ inject_into_file 'Gemfile', before: 'group :development, :test do' do
     gem 'font-awesome-sass'
     gem 'simple_form'
     gem "pundit"
+
   RUBY
 end
 
 inject_into_file 'Gemfile', after: 'group :development, :test do' do
   <<-RUBY
+
   gem 'rspec'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -23,16 +25,8 @@ end
 
 inject_into_file 'Gemfile', after: 'group :development do' do
   <<-RUBY
-  gem "letter_opener_web", "~> 1.0"
-  RUBY
-end
 
-inject_into_file 'Gemfile', after: 'group :test do' do
-  <<-RUBY
-  gem 'rspec'
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'dotenv-rails'
+  gem "letter_opener_web", "~> 1.0"
   RUBY
 end
 
@@ -664,9 +658,9 @@ after_bundle do
   route "root to: 'pages#home'"
   inject_into_file 'config/routes.rb', before: 'end' do
     <<~RUBY
-      if Rails.env.development?
-        mount LetterOpenerWeb::Engine, at: '/letter_opener'
-      end
+        if Rails.env.development?
+          mount LetterOpenerWeb::Engine, at: '/letter_opener'
+        end
     RUBY
   end
 
@@ -724,7 +718,7 @@ after_bundle do
   # Webpacker / Yarn
   ########################################
   run 'yarn add bootstrap @popperjs/core'
-  run "rails webpacker:install:stimulus"
+  # run "rails webpacker:install:stimulus"
   append_file 'app/javascript/packs/application.js', <<~JS
     import "bootstrap"
   JS
