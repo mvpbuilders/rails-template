@@ -9,6 +9,8 @@ inject_into_file 'Gemfile', before: 'group :development, :test do' do
     gem 'font-awesome-sass'
     gem 'simple_form'
     gem "pundit"
+    gem 'bootstrap'
+    gem 'sassc-rails'
 
   RUBY
 end
@@ -715,20 +717,21 @@ after_bundle do
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
 
-  # Webpacker / Yarn
+  # Bootstrap
   ########################################
-  run 'yarn add bootstrap @popperjs/core'
-  # run "rails webpacker:install:stimulus"
-  append_file 'app/javascript/packs/application.js', <<~JS
+  append_file 'app/javascript/application.js', <<~JS
+    import "popper"
     import "bootstrap"
   JS
 
-  inject_into_file 'config/webpack/environment.js', before: 'module.exports' do
-    <<~JS
-      // Preventing Babel from transpiling NodeModules packages
-      environment.loaders.delete('nodeModules');
-    JS
-  end
+  append_file 'config/importmap.rb', <<~RUBY
+    pin "popper", to: 'popper.js', preload: true
+    pin "bootstrap", to: 'bootstrap.min.js', preload: true
+  RUBY
+
+  append_file 'config/initializers/assets.rb', <<~RUBY
+    Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+  RUBY
 
   # Dotenv
   ########################################
@@ -736,7 +739,7 @@ after_bundle do
 
   # Rubocop
   ########################################
-  run 'curl -L https://raw.githubusercontent.com/lewagon/rails-templates/master/.rubocop.yml > .rubocop.yml'
+  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/.rubocop.yml > .rubocop.yml'
 
   # Git
   ########################################
