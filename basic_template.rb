@@ -41,7 +41,7 @@ gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'conf
 
 # Flashes
 ########################################
-run 'curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/templates/_flashes.html.erb > app/views/shared/_flashes.html.erb'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/_flashes.html.erb > app/views/shared/_flashes.html.erb'
 
 # MAIL TEMPLATE
 ########################################
@@ -51,7 +51,7 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 # NAVBAR
 ########################################
-run 'curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/templates/_navbar_wagon.html.erb > app/views/shared/_navbar.html.erb'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   <<-HTML
