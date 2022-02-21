@@ -171,6 +171,10 @@ after_bundle do
   ########################################
   run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/.rubocop.yml > .rubocop.yml'
 
+  # Procfile
+  ########################################
+  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/Procfile > Procfile'
+
   # Git
   ########################################
   git add: '.'
