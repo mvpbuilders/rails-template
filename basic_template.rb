@@ -41,7 +41,8 @@ gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'conf
 
 # Flashes
 ########################################
-run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/_flashes.html.erb > app/views/shared/_flashes.html.erb'
+run 'mkdir app/views/shared'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_flashes.html.erb > app/views/shared/_flashes.html.erb'
 
 # MAIL TEMPLATE
 ########################################
@@ -64,7 +65,15 @@ end
 ########################################
 run 'rm README.md'
 
-run 'curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/templates/README.md > README.md'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/README.md > README.md'
+
+# Rubocop
+########################################
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/.rubocop.yml > .rubocop.yml'
+
+# Procfile
+########################################
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/Procfile > Procfile'
 
 # Generators
 ########################################
@@ -163,28 +172,22 @@ after_bundle do
 
   # Bootstrap
   ########################################
-  append_file 'app/javascript/application.js', <<~JS
-    import "popper"
-  JS
+  # append_file 'app/javascript/packs/application.js', <<~JS
+  #   import "popper"
+  #   import "bootstrap"
+  # JS
 
-  append_file 'config/importmap.rb', <<~RUBY
-    pin "popper", to: 'popper.js', preload: true
-  RUBY
+  # append_file 'config/importmap.rb', <<~RUBY
+  #   pin "popper", to: 'popper.js', preload: true
+  #   pin "bootstrap", to: 'bootstrap.min.js', preload: true
+  # RUBY
 
-  append_file 'config/initializers/assets.rb', <<~RUBY
-    Rails.application.config.assets.precompile += %w( popper.js )
-  RUBY
-
-  # Rubocop
-  ########################################
-  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/.rubocop.yml > .rubocop.yml'
-
-  # Procfile
-  ########################################
-  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/Procfile > Procfile'
+  # append_file 'config/initializers/assets.rb', <<~RUBY
+  #   Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+  # RUBY
 
   # Git
   ########################################
   git add: '.'
-  git commit: "-m 'Initial commit with basic-template'"
+  git commit: "-m 'Initial commit with mvp-builders/basic-template'"
 end
