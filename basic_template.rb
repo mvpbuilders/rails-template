@@ -69,11 +69,19 @@ run 'curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/te
 # Generators
 ########################################
 generators = <<~RUBY
-  config.generators do |generate|
-    generate.assets false
-    generate.helper false
-    generate.test_framework :test_unit, fixture: false
-  end
+config.generators do |g|
+  g.test_framework :rspec,
+    request_specs: false,
+    view_specs: false,
+    routing_specs: false,
+    helper_specs: false,
+    controller_specs: true
+  g.stylesheets = false
+end
+
+config.to_prepare do
+  Devise::Mailer.layout 'mailer'
+end
 RUBY
 
 environment generators
@@ -164,7 +172,7 @@ after_bundle do
   RUBY
 
   append_file 'config/initializers/assets.rb', <<~RUBY
-    Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+    Rails.application.config.assets.precompile += %w( popper.js )
   RUBY
 
   # Rubocop
