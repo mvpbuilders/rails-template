@@ -45,7 +45,7 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 # NAVBAR
 ########################################
-run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
+# run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   <<-HTML
