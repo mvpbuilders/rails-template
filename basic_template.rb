@@ -6,12 +6,8 @@ inject_into_file 'Gemfile', before: 'group :development, :test do' do
   <<~RUBY
     gem 'devise'
     gem 'autoprefixer-rails', '10.2.5'
-    gem 'font-awesome-sass'
     gem 'simple_form'
     gem "pundit"
-    gem 'bootstrap'
-    gem 'sassc-rails'
-
   RUBY
 end
 
@@ -161,25 +157,19 @@ after_bundle do
   ########################################
   append_file 'app/javascript/application.js', <<~JS
     import "popper"
-    import "bootstrap"
   JS
 
   append_file 'config/importmap.rb', <<~RUBY
     pin "popper", to: 'popper.js', preload: true
-    pin "bootstrap", to: 'bootstrap.min.js', preload: true
   RUBY
 
   append_file 'config/initializers/assets.rb', <<~RUBY
     Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
   RUBY
 
-  # Dotenv
-  ########################################
-  run 'touch .env'
-
   # Rubocop
   ########################################
-  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/.rubocop.yml > .rubocop.yml'
+  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/.rubocop.yml > .rubocop.yml'
 
   # Git
   ########################################
