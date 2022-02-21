@@ -45,22 +45,7 @@ gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'conf
 
 # Flashes
 ########################################
-file 'app/views/shared/_flashes.html.erb', <<~HTML
-  <% if notice %>
-    <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
-      <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-      </button>
-    </div>
-  <% end %>
-  <% if alert %>
-    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
-      <%= alert %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-      </button>
-    </div>
-  <% end %>
-HTML
+run 'curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/templates/_flashes.html.erb > app/views/shared/_flashes.html.erb'
 
 # MAIL TEMPLATE
 ########################################
