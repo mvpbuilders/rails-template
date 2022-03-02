@@ -19,4 +19,5 @@ Get a minimal rails app ready with:
 rails new \
   --database postgresql \
   -m https://raw.githubusercontent.com/mvpbuilders/rails-template/main/basic_template.rb \
+  -c bootstrap \
   RAILS_APP_NAME
