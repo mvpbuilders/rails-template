@@ -173,22 +173,6 @@ after_bundle do
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
 
-  # Bootstrap
-  ########################################
-  append_file 'app/javascript/packs/application.js', <<~JS
-    import "popper"
-    import "bootstrap"
-  JS
-
-  append_file 'config/importmap.rb', <<~RUBY
-    pin "popper", to: 'popper.js', preload: true
-    pin "bootstrap", to: 'bootstrap.min.js', preload: true
-  RUBY
-
-  append_file 'config/initializers/assets.rb', <<~RUBY
-    Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
-  RUBY
-
   # Git
   ########################################
   git add: '.'
