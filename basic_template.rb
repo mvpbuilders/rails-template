@@ -1,5 +1,15 @@
 run "if uname | grep -q 'Darwin'; then pgrep spring | xargs kill -9; fi"
 
+# Rails and Ruby version
+########################################
+rails_requirement = "~> 7.0.0".freeze
+requirement = Gem::Requirement.new(rails_requirement)
+rails_version = Gem::Version.new(Rails::VERSION::STRING)
+prompt = "This template requires Rails #{rails_requirement}. "\
+"You are using #{rails_version}."
+
+return p prompt unless requirement.satisfied_by?(rails_version)
+
 # GEMFILE
 ########################################
 inject_into_file 'Gemfile', before: 'group :development, :test do' do
@@ -45,7 +55,7 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 # NAVBAR
 ########################################
-# run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   <<-HTML
@@ -165,19 +175,19 @@ after_bundle do
 
   # Bootstrap
   ########################################
-  # append_file 'app/javascript/packs/application.js', <<~JS
-  #   import "popper"
-  #   import "bootstrap"
-  # JS
+  append_file 'app/javascript/packs/application.js', <<~JS
+    import "popper"
+    import "bootstrap"
+  JS
 
-  # append_file 'config/importmap.rb', <<~RUBY
-  #   pin "popper", to: 'popper.js', preload: true
-  #   pin "bootstrap", to: 'bootstrap.min.js', preload: true
-  # RUBY
+  append_file 'config/importmap.rb', <<~RUBY
+    pin "popper", to: 'popper.js', preload: true
+    pin "bootstrap", to: 'bootstrap.min.js', preload: true
+  RUBY
 
-  # append_file 'config/initializers/assets.rb', <<~RUBY
-  #   Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
-  # RUBY
+  append_file 'config/initializers/assets.rb', <<~RUBY
+    Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+  RUBY
 
   # Git
   ########################################
