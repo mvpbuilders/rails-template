@@ -18,12 +18,14 @@ inject_into_file 'Gemfile', before: 'group :development, :test do' do
     gem 'autoprefixer-rails', '10.2.5'
     gem 'simple_form'
     gem "pundit"
+
   RUBY
 end
 
 inject_into_file 'Gemfile', after: 'group :development, :test do' do
   <<-RUBY
 
+  gem 'factory_bot_rails'
   gem 'rspec'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -116,9 +118,9 @@ after_bundle do
   route "root to: 'pages#home'"
   inject_into_file 'config/routes.rb', before: 'end' do
     <<~RUBY
-        if Rails.env.development?
-          mount LetterOpenerWeb::Engine, at: '/letter_opener'
-        end
+      if Rails.env.development?
+        mount LetterOpenerWeb::Engine, at: '/letter_opener'
+      end
     RUBY
   end
 
@@ -131,6 +133,10 @@ after_bundle do
     *.swp
     .DS_Store
   TXT
+
+  # Rspec install
+  ########################################
+  generate('rspec:install')
 
   # Devise install + user
   ########################################
@@ -163,6 +169,7 @@ after_bundle do
   file 'app/controllers/pages_controller.rb', <<~RUBY
     class PagesController < ApplicationController
       skip_before_action :authenticate_user!, only: [ :home ]
+      
       def home
       end
     end
