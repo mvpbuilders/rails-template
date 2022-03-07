@@ -26,7 +26,6 @@ inject_into_file 'Gemfile', after: 'group :development, :test do' do
   <<-RUBY
 
   gem 'factory_bot_rails'
-  gem 'rspec'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
@@ -37,6 +36,13 @@ inject_into_file 'Gemfile', after: 'group :development do' do
   <<-RUBY
 
   gem "letter_opener_web", "~> 1.0"
+  RUBY
+end
+
+inject_into_file 'Gemfile', after: 'group :test do' do
+  <<-RUBY
+
+  gem 'rspec-rails'
   RUBY
 end
 
@@ -61,6 +67,7 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   <<-HTML
+
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
   HTML
