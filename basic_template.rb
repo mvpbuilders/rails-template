@@ -207,9 +207,4 @@ after_bundle do
   # Rubocop run
   ########################################
   run 'rubocop -A --disable-uncorrectable'
-  
-  # Git
-  ########################################
-  git add: '.'
-  git commit: "-m 'Initial commit with mvp-builders/basic-template'"
 end
