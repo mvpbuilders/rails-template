@@ -15,19 +15,23 @@ end
 
 # GEMFILE
 ########################################
+file = File.open("Gemfile")
 run 'rm Gemfile'
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/Gemfile > Gemfile'
 
-File.open("Gemfile", "r") do |f|
-  f.each_line do |line|
-    if /(^ruby|^gem "rails")/.match(line)
-      inject_into_file 'Gemfile', after: 'git_source' do
-        <<-RUBY
-          line
-        RUBY
-      end
-    end
+versions = []
+file.each_line do |line|
+  if /(^ruby|^gem "rails")/.match(line)
+    versions << line
   end
+end
+
+inject_into_file 'Gemfile', after: 'git_source(:github) { |repo| "https://github.com/#{repo}.git" }' do
+  <<-TXT
+
+
+#{versions.join("")}
+  TXT
 end
 
 # Dev environment
