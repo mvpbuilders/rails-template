@@ -29,6 +29,8 @@ inject_into_file 'Gemfile', after: 'group :development, :test do' do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
+  gem "rubocop-performance"
+  gem 'rubocop-rails'
   RUBY
 end
 
@@ -187,6 +189,10 @@ after_bundle do
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
 
+  # Rubocop run
+  ########################################
+  run 'rubocop -A --disable-uncorrectable'
+  
   # Git
   ########################################
   git add: '.'
