@@ -458,15 +458,15 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
   </head>
 
   <body>
-  <span class="preheader">Welcome to Trendsetters Hub.</span>
+  <span class="preheader">Welcome to <%= Rails.application.class.module_parent_name %></span>
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center">
         <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
           <tr>
             <td class="email-masthead">
-              <a href="https://hub.trendsetters.com" class="f-fallback email-masthead_name">
-                Trendsetters Talent Hub
+              <a href="https://<%= Rails.application.class.module_parent_name %>.com" class="f-fallback email-masthead_name">
+                <%= Rails.application.class.module_parent_name %>
               </a>
             </td>
           </tr>
@@ -481,7 +481,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
                 <tr>
                   <td class="content-cell" align="center">
                     <p class="f-fallback sub align-center">
-                      &copy; 2021 Trendsetters Hub. All rights reserved.
+                      &copy; <%= "#{Date.today.year} #{Rails.application.class.module_parent_name}" %>. All rights reserved.
                     </p>
                   </td>
                 </tr>

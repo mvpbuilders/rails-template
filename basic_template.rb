@@ -165,7 +165,7 @@ after_bundle do
   file 'app/controllers/application_controller.rb', <<~RUBY
     class ApplicationController < ActionController::Base
       before_action :authenticate_user!
-      include Pundit::Authorization
+      # include Pundit::Authorization
 
     end
   RUBY
