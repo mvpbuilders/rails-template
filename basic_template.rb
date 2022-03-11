@@ -15,40 +15,19 @@ end
 
 # GEMFILE
 ########################################
-inject_into_file 'Gemfile', before: 'group :development, :test do' do
-  <<~RUBY
-    gem 'devise'
-    gem 'autoprefixer-rails', '10.2.5'
-    gem 'simple_form'
-    gem "pundit"
+run 'rm Gemfile'
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/Gemfile > Gemfile'
 
-  RUBY
-end
-
-inject_into_file 'Gemfile', after: 'group :development, :test do' do
-  <<-RUBY
-
-  gem 'factory_bot_rails'
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'dotenv-rails'
-  gem "rubocop-performance"
-  gem 'rubocop-rails'
-  RUBY
-end
-
-inject_into_file 'Gemfile', after: 'group :development do' do
-  <<-RUBY
-
-  gem "letter_opener_web", "~> 1.0"
-  RUBY
-end
-
-inject_into_file 'Gemfile', after: 'group :test do' do
-  <<-RUBY
-
-  gem 'rspec-rails'
-  RUBY
+File.open("Gemfile", "r") do |f|
+  f.each_line do |line|
+    if /(^ruby|^gem "rails")/.match(line)
+      inject_into_file 'Gemfile', after: 'git_source' do
+        <<-RUBY
+          line
+        RUBY
+      end
+    end
+  end
 end
 
 # Dev environment
@@ -60,13 +39,13 @@ gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'conf
 run 'mkdir app/views/shared'
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_flashes.html.erb > app/views/shared/_flashes.html.erb'
 
-# MAIL TEMPLATE
+# Mail Template
 ########################################
 run 'rm app/views/layouts/mailer.html.erb'
 
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/mailer.html.erb > app/views/layouts/mailer.html.erb'
 
-# LOGO, NAVBAR
+# Logo, Navbar
 ########################################
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/images/logo.png > app/assets/images/logo.png'
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
@@ -79,7 +58,7 @@ inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   HTML
 end
 
-# FOOTER
+# Footer
 ########################################
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_footer.html.erb > app/views/shared/_footer.html.erb'
 
@@ -198,6 +177,27 @@ after_bundle do
       end
     end
   RUBY
+
+  # Bootstrap
+  ########################################
+  append_file 'app/assets/stylesheets/application.css', <<~CSS
+    @import "bootstrap";
+  CSS
+
+  append_file 'config/initializers/assets.rb', <<~RUBY
+    Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+  RUBY
+
+  append_file 'config/importmap.rb', <<~RUBY
+    pin "popper", to: 'popper.js', preload: true
+    pin "bootstrap", to: 'bootstrap.min.js', preload: true
+  RUBY
+
+  append_file 'app/javascript/application.js', <<~JS
+    import "popper"
+    import "bootstrap"
+  JS
+
 
   # Environments
   ########################################
