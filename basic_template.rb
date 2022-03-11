@@ -66,8 +66,9 @@ run 'rm app/views/layouts/mailer.html.erb'
 
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/mailer.html.erb > app/views/layouts/mailer.html.erb'
 
-# NAVBAR
+# LOGO AND NAVBAR
 ########################################
+run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/images/logo.png > app/assets/images/logo.png'
 run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_navbar.html.erb > app/views/shared/_navbar.html.erb'
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
