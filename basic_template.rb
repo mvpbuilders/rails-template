@@ -143,6 +143,7 @@ after_bundle do
 
   # Rspec install
   ########################################
+  run 'rm -rf test'
   generate('rspec:install')
 
   # Devise install + user
@@ -184,9 +185,9 @@ after_bundle do
 
   # Bootstrap
   ########################################
-  append_file 'app/assets/stylesheets/application.css', <<~CSS
-    @import "bootstrap";
-  CSS
+  run 'rm app/assets/stylesheets/application.css'
+  run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/application.scss > app/assets/stylesheets/application.scss'
+  run 'rails assets:precompile'
 
   append_file 'config/initializers/assets.rb', <<~RUBY
     Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
