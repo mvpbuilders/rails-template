@@ -28,7 +28,7 @@ refact: Abstract methods for dry
 [Must read](https://chris.beams.io/posts/git-commit/#seven-rules)
 
 &nbsp;
-## Branch naming convention (only when the branch doesn't correspond with a clubhouse story)
+## Branch naming convention (only when the branch doesn't correspond with a shortcut story)
 ### `<username>/<type>/<name>`
 
 #### `<type>`
