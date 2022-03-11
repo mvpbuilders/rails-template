@@ -8,7 +8,10 @@ rails_version = Gem::Version.new(Rails::VERSION::STRING)
 prompt = "This template requires Rails #{rails_requirement}. "\
 "You are using #{rails_version}."
 
-return p prompt unless requirement.satisfied_by?(rails_version)
+unless requirement.satisfied_by?(rails_version)
+  p prompt
+  exit
+end
 
 # GEMFILE
 ########################################
