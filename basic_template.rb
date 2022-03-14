@@ -56,9 +56,10 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 inject_into_file 'app/views/layouts/application.html.erb', after: '<body>' do
   <<-HTML
-  
-  <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
+
+    <div class="content" style="min-height: 85vh" >
+      <%= render 'shared/navbar' %>
+      <%= render 'shared/flashes' %>
   HTML
 end
 
@@ -68,8 +69,9 @@ run 'curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/f
 
 inject_into_file 'app/views/layouts/application.html.erb', before: '</body>' do
   <<-HTML
-  <%= render 'shared/footer' %>
+</div>
 
+  <%= render 'shared/footer' %>
   HTML
 end
 
