@@ -1,0 +1,11 @@
+<footer class="fixed-bottom">
+  <div class=" small border-top py-4 mt-5">
+    <div class="container d-flex justify-content-between">
+      <div><%= Rails.application.class.module_parent_name %> <%= Date.today.year %></div>
+      <div class="text-end">
+        <%= link_to "Website", "/", class: "mx-4"  %>
+        <%= link_to "Contact", "/contact" %>
+      </div>
+    </div>
+  </div>
+</footer>
