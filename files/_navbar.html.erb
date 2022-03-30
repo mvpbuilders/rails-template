@@ -4,5 +4,11 @@
       <%= image_tag "logo.png", width:"30", height:"30", class:"d-inline-block align-text-top" %>
       <%= Rails.application.class.module_parent_name %>
     </a>
+
+    <% if user_signed_in? %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-item btn btn-link" %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class:"nav-item btn btn-link" %>
+    <% end %>
   </div>
 </nav>
