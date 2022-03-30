@@ -213,6 +213,7 @@ after_bundle do
   append_file 'app/assets/config/manifest.js', <<~JS
     //= link_directory ../stylesheets .scss
   JS
+  run 'rails assets:clobber'
 
 
   # Environments
