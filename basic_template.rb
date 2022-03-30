@@ -196,6 +196,7 @@ after_bundle do
   RUBY
 
   append_file 'config/importmap.rb', <<~RUBY
+    pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@6.1.5/lib/assets/compiled/rails-ujs.js"
     pin "popper", to: 'popper.js', preload: true
     pin "bootstrap", to: 'bootstrap.min.js', preload: true
   RUBY
@@ -203,6 +204,14 @@ after_bundle do
   append_file 'app/javascript/application.js', <<~JS
     import "popper"
     import "bootstrap"
+    
+    import Rails from '@rails/ujs';
+
+    Rails.start();
+  JS
+
+  append_file 'app/assets/config/manifest.js', <<~JS
+    //= link_directory ../stylesheets .scss
   JS
 
 
