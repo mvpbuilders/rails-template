@@ -1,39 +1,40 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }gem "sprockets-rails"
-gem 'pg'
-gem "puma", "~> 5.0"
-gem "importmap-rails"
-gem "turbo-rails"
-gem "stimulus-rails"
-gem "jbuilder"
-gem "redis", "~> 4.0"
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+gem "autoprefixer-rails", "10.2.5"
 gem "bootsnap", require: false
-gem 'bootstrap'
-gem "sassc-rails"
-gem 'devise'
-gem 'autoprefixer-rails', '10.2.5'
-gem 'simple_form'
+gem "bootstrap"
+gem "devise"
+gem "importmap-rails"
+gem "jbuilder"
+gem "pg"
+gem "puma", "~> 5.0"
 gem "pundit"
+gem "redis", "~> 4.0"
+gem "sassc-rails"
+gem "simple_form"
+gem "sprockets-rails"
+gem "stimulus-rails"
+gem "turbo-rails"
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
-  gem 'factory_bot_rails'
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'dotenv-rails'
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "factory_bot_rails"
   gem "rubocop-performance"
-  gem 'rubocop-rails'
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "rubocop-rails"
 end
 
 group :development do
-  gem "web-console"
   gem "letter_opener_web", "~> 1.0"
+  gem "web-console"
 end
 
 group :test do
-  gem 'rspec-rails'
   gem "capybara"
+  gem "rspec-rails"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
