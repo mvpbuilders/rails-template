@@ -52,6 +52,12 @@ run "rm app/views/layouts/mailer.html.erb"
 
 run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/mailer.html.erb > app/views/layouts/mailer.html.erb"
 
+# Home Template
+########################################
+run "rm app/views/pages/home.html.erb"
+
+run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/home.html.erb > app/views/pages/home.html.erb"
+
 # Logo, Navbar
 ########################################
 run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/images/logo.png > app/assets/images/logo.png"
