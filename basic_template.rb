@@ -52,6 +52,12 @@ run "rm app/views/layouts/mailer.html.erb"
 
 run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/mailer.html.erb > app/views/layouts/mailer.html.erb"
 
+#Home Template
+#######################################
+run "mkdir app/views/pages"
+run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/home.html.erb > app/views/pages/home.html.erb"
+
+
 # Logo, Navbar
 ########################################
 run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/images/logo.png > app/assets/images/logo.png"
@@ -121,7 +127,6 @@ after_bundle do
   ########################################
   rails_command "db:drop db:create db:migrate"
   generate("simple_form:install", "--bootstrap")
-  generate(:controller, "pages", "home", "--skip-routes", "--no-test-framework")
 
   # Replace simple form initializer to work with Bootstrap 5
   run "curl -L https://raw.githubusercontent.com/heartcombo/simple_form-bootstrap/main/config/initializers/simple_form_bootstrap.rb > config/initializers/simple_form_bootstrap.rb"
@@ -184,7 +189,7 @@ after_bundle do
 
   # Pages Controller
   ########################################
-  run "rm app/controllers/pages_controller.rb"
+  # run "rm app/controllers/pages_controller.rb"
   file "app/controllers/pages_controller.rb", <<~RUBY
     class PagesController < ApplicationController
       skip_before_action :authenticate_user!, only: [ :home ]
@@ -197,7 +202,10 @@ after_bundle do
   ########################################
   run "rm app/assets/stylesheets/application.css"
   run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/application.scss > app/assets/stylesheets/application.scss"
+
+  run "mkdir app/assets/stylesheets/config"
   run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_bootstrap_variables.scss > app/assets/stylesheets/config/_bootstrap_variables.scss"
+
   run "rails assets:precompile"
 
   append_file "config/initializers/assets.rb", <<~RUBY
