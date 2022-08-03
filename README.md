@@ -13,7 +13,7 @@ Get a minimal `rails >= 7` app ready with:
 **Layouts:**
 - Basic README
 - Mailer layout
-- _flashes, _navbar, _footer
+- _flashes, _navbar, _footer, _home
 
 **Files:**
 - .rubocop
@@ -25,3 +25,8 @@ rails new \
   --database postgresql \
   -m https://raw.githubusercontent.com/mvpbuilders/rails-template/main/basic_template.rb \
   RAILS_APP_NAME
+
+# rails new \
+#   --database postgresql \
+#   -m rails-template/basic_template.rb \
+#   RAILS_APP_NAME
