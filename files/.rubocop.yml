@@ -565,7 +565,7 @@ Lint/Void:
   Description: 'Possible use of operator/literal/variable in void context.'
   Enabled: false
 
-Gemspec/DateAssignment: # (new in 1.10)
+Gemspec/DeprecatedAttributeAssignment: # (new in 1.10)
   Enabled: true
 
 Layout/SpaceBeforeBrackets: # (new in 1.7)
