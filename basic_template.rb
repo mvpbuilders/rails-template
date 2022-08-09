@@ -162,6 +162,13 @@ after_bundle do
   generate("devise:install")
   generate("devise", "User")
 
+  inject_into_file "config/initializers/devise.rb", after: "# config.navigational_formats = ['*/*', :html]" do
+    <<-RUBY
+      
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
+    RUBY
+  end
+
   # Pundit install
   ########################################
   generate("pundit:install")
