@@ -211,7 +211,9 @@ after_bundle do
   run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/application.scss > app/assets/stylesheets/application.scss"
 
   run "mkdir app/assets/stylesheets/config"
-  run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_bootstrap_variables.scss > app/assets/stylesheets/config/_bootstrap_variables.scss"
+  # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_bootstrap_variables.scss > app/assets/stylesheets/config/_bootstrap_variables.scss"
+
+  run "cp ../rails-template/files/_bootstrap_variables.scss app/assets/stylesheets/config/_bootstrap_variables.scss"
 
   run "rails assets:precompile"
 
