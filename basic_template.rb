@@ -213,8 +213,6 @@ after_bundle do
   run "mkdir app/assets/stylesheets/config"
   run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_bootstrap_variables.scss > app/assets/stylesheets/config/_bootstrap_variables.scss"
 
-  run "rails assets:precompile"
-
   append_file "config/initializers/assets.rb", <<~RUBY
     Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
   RUBY
@@ -238,7 +236,6 @@ after_bundle do
   append_file "app/assets/config/manifest.js", <<~JS
     //= link_directory ../stylesheets .scss
   JS
-  run "rails assets:clobber"
 
   # Environments
   ########################################
@@ -246,6 +243,11 @@ after_bundle do
               env: "development"
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }',
               env: "production"
+
+  # Github CI environment
+  ########################################
+  run "mkdir .github; mkdir .github/workflows"
+  run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/ci.yml > .github/workflows/ci.yml"
 
   # Rubocop run
   ########################################

@@ -1,0 +1,97 @@
+env:
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_HOST: localhost
+  RAILS_ENV: test
+
+name: "Github CI"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-rspec:
+    runs-on: ubuntu-latest # runner
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      # redis:
+      #   image: redis
+      #   ports:
+      #     - "6379:6379"
+      #   options: --entrypoint redis-server
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92, this uses the Ruby version from .ruby-version
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+      - name: Setup database
+        env:
+          POSTGRES_PASSWORD: postgres
+          RAILS_ENV: test
+        run: bundle exec rake db:setup
+      - name: Build and test with rspec
+        run: |
+          bundle exec rspec spec
+
+  lint-rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v18.7
+        with:
+          files: |
+            *.rb
+            **/*.rb
+          files_ignore: |
+            db/schema.rb
+            db/**/*
+            bin/**/*
+            config/**/*
+            script/**/*
+            vendor/**/*
+            node_modules/**/*
+      - name: Setup Ruby
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92, this uses the Ruby version from .ruby-version
+      - name: Cache gems
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-rubocop-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-rubocop-
+      - name: Install gems
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          bundle config path vendor/bundle
+          bundle config set without 'default doc job cable storage ujs test db'
+          bundle install --jobs 4 --retry 3
+      - name: Run RuboCop
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "changed files are: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          bundle exec rubocop --parallel ${{ steps.changed-files-specific.outputs.all_changed_files }}
