@@ -247,15 +247,20 @@ after_bundle do
   # Github CI environment
   ########################################
   run "mkdir .github; mkdir .github/workflows"
-  # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/ci.yml > .github/workflows/ci.yml"
-  run "cp ../rails-template/files/ci.yml .github/workflows/ci.yml" # TODO DELETE
+  run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/ci.yml > .github/workflows/ci.yml"
+  inject_into_file "config/database.yml", after: "test:\n" do
+    <<-YML
+  host: <%= ENV["POSTGRES_HOST"] %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+    YML
+  end
 
 
   # Testing configiguration
   ########################################
   run "rm spec/rails_helper.rb"
-  # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/rails_helper.rb > spec/rails_helper.rb"
-  run "cp ../rails-template/files/rails_helper.rb spec/rails_helper.rb"  # TODO DELETE
+  run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/rails_helper.rb > spec/rails_helper.rb"
   gsub_file("spec/models/user_spec.rb", /pending.*/, "")
 
   # Rubocop run
