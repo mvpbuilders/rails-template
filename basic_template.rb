@@ -247,7 +247,16 @@ after_bundle do
   # Github CI environment
   ########################################
   run "mkdir .github; mkdir .github/workflows"
-  run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/ci.yml > .github/workflows/ci.yml"
+  # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/ci.yml > .github/workflows/ci.yml"
+  run "cp ../rails-template/files/ci.yml .github/workflows/ci.yml" # TODO DELETE
+
+
+  # Testing configiguration
+  ########################################
+  run "rm spec/rails_helper.rb"
+  # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/rails_helper.rb > spec/rails_helper.rb"
+  run "cp ../rails-template/files/rails_helper.rb spec/rails_helper.rb"  # TODO DELETE
+  gsub_file("spec/models/user_spec.rb", /pending.*/, "")
 
   # Rubocop run
   ########################################
