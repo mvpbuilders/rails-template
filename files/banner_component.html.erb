@@ -1,0 +1,36 @@
+<section class="position-relative <%= classes %>">
+  <div class="banner position-absolute h-100 rounded-right"
+       style="width: <%= background_width %>%; background: <%= background_color %>;"></div>
+  <div class="container position-relative <%= padding %>">
+    <div class="row align-items-center">
+      <div class="col-lg-6 <%= first_column_classes %>">
+        <%= first_column %>
+      </div>
+      <div class="col-lg-6 <%= second_column_classes %>">
+        <%= second_column %>
+      </div>
+      <%= conditional_div %>
+    </div>
+  </div>
+</section>
+<section id="banner" class="position-relative landing bg-light-gray mb-5">
+  <div class="banner position-absolute h-100 w-50 bg-secondary rounded-end d-md-block d-none">
+  </div>
+  <div class="banner position-absolute h-50 w-100 bg-secondary rounded-end d-md-none d-block">
+  </div>
+  <div class="container position-relative p-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-7 col-sm-12 p-lg-5 mt-4 mt-md-0">
+        <h1 class="display-1 lh-base text-white my-sm-2 fw-bold">Brand Name</h1>
+        <h4 class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis</h4>
+        <%= link_to "Contact us", "#", class: "btn btn-primary btn-lg rounded-pill w-50" %>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end p-sm-3 mt-5 mt-md-0">
+        <%# Change this svg for a real img and delete de img of line 13 %>
+          <%#= svg("product-img", classes: "img-fluid ms-4") %>
+          <img class="border border-secondary img-fluid" style="width: 613px; height: 423px">
+        <%#%>
+      </div>
+    </div>
+  </div>
+</section>
