@@ -164,7 +164,7 @@ after_bundle do
 
   inject_into_file "config/initializers/devise.rb", after: "# config.navigational_formats = ['*/*', :html]" do
     <<-RUBY
-      
+
   config.navigational_formats = ['*/*', :html, :turbo_stream]
     RUBY
   end
@@ -213,7 +213,9 @@ after_bundle do
   run "mkdir app/assets/stylesheets/config"
   # run "curl -L https://raw.githubusercontent.com/mvpbuilders/rails-template/main/files/_bootstrap_variables.scss > app/assets/stylesheets/config/_bootstrap_variables.scss"
 
-  run "cp ../rails-template/files/_bootstrap_variables.scss app/assets/stylesheets/config/_bootstrap_variables.scss"
+  bootstrap_path = run "bundle show bootstrap"
+
+  run "cp #{bootstrap_path}/assets/stylesheets/bootstrap/_variables.scss app/assets/stylesheets/config/_bootstrap_variables.scss"
 
   append_file "config/initializers/assets.rb", <<~RUBY
     Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
@@ -258,7 +260,6 @@ after_bundle do
     YML
   end
 
-
   # Testing configiguration
   ########################################
   run "rm spec/rails_helper.rb"
@@ -284,5 +285,5 @@ def devise_view_wrapper(file)
   </div>
 </div>
     HTML
-  end  
+  end
 end
