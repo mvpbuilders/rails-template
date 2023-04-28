@@ -38,7 +38,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup Ruby
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92, this uses the Ruby version from .ruby-version
+        uses: ruby/setup-ruby@v1
         with:
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
@@ -75,7 +75,7 @@ jobs:
             node_modules/**/*
       - name: Setup Ruby
         if: steps.changed-files-specific.outputs.any_changed == 'true'
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92, this uses the Ruby version from .ruby-version
+        uses: ruby/setup-ruby@v1
       - name: Cache gems
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: actions/cache@v1
