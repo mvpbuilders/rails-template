@@ -4,7 +4,7 @@ run "if uname | grep -q 'Darwin'; then pgrep spring | xargs kill -9; fi"
 
 # Rails and Ruby version
 ########################################
-rails_requirement = '~> 7.0.0'
+rails_requirement = '~> 7.1.0'
 requirement = Gem::Requirement.new(rails_requirement)
 rails_version = Gem::Version.new(Rails::VERSION::STRING)
 prompt = "This template requires Rails #{rails_requirement}. "\
